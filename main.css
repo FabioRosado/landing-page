@@ -1,0 +1,55 @@
+html {
+    background-image: url("assets/images/max-boettinger-307644-unsplash.jpg");
+    background-position: right top;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+p, h4 {
+    font-family: sans-serif;
+}
+
+.text {
+    text-justify: auto;
+}
+
+.author {
+    text-align: right;
+    font-family: sans-serif;
+}
+
+.fa, .fas {
+    color: white;
+    padding-right: 5px;
+}
+
+#is-right {
+    float: right;
+}
+
+
+.weather {
+    color: white;
+    padding-top: 20px;
+    padding-right: 25px;
+}
+
+
+.quote {
+    background: rgba(255, 255, 255, 0.5);
+    width: 50%;
+    padding: 20px;
+    margin-top: 15%;
+    margin-left: 25%;
+}
+
+@media screen and (max-width:480px) {
+    .quote {
+        margin-left: 10%;
+        width: 80%;
+    }
+    
+    .weather {
+        margin-right: 5%;
+    }
+}
