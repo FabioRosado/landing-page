@@ -8,15 +8,14 @@
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
-    <script src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
-<body>
-
+<body id="pagebody">
   <div class="container is-fluid">
-    <div class="weather">
+    <div id="weather">
       <h4 id="is-right">
-        <i class="fas fa-cloud"></i> 
-        22.1 °C and cloudy in Redhill, GB
+          <i class=weather-icon></i><span id="weather-details"></span>
       </h4>
     </div>
 
@@ -32,6 +31,6 @@
     </div>
   </div>
 
-
+<script src="main.js"></script>
 </body>
 </html>

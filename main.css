@@ -1,9 +1,11 @@
 html {
-    background-image: url("assets/images/max-boettinger-307644-unsplash.jpg");
+    background-image: url("assets/images/placeholder.jpg");
     background-position: right top;
     background-attachment: fixed;
     background-size: cover;
+    background-color: #2c69ba;
 }
+
 
 p, h4 {
     font-family: sans-serif;
@@ -28,7 +30,7 @@ p, h4 {
 }
 
 
-.weather {
+#weather {
     color: white;
     padding-top: 20px;
     padding-right: 25px;
@@ -49,7 +51,7 @@ p, h4 {
         width: 80%;
     }
     
-    .weather {
+    #weather {
         margin-right: 5%;
     }
 }
