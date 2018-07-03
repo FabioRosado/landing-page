@@ -39,6 +39,7 @@ p, h4 {
 
 .quote {
     background: rgba(255, 255, 255, 0.5);
+    color: black;
     width: 50%;
     padding: 20px;
     margin-top: 15%;

@@ -1,13 +1,13 @@
-
+// Constant variables
 const weatherUrl = "http://api.openweathermap.org/data/2.5/weather?units=metric";
-const weatherApi = "&APPID=";
+const weatherApi = "&APPID=" +  "{your API Key here}";
 var data = {};
 
+// Build open weather url
 function buildWeatherUrl(latitude, longitude) {
     var url = weatherUrl + '&lat=' + latitude + '&lon=' + longitude + weatherApi;
     return url;
   }
-
 
 
 if (navigator.geolocation) {
@@ -70,61 +70,28 @@ function updateBg(image){
   var htmlRule = rulesList[0];
   htmlRule.style.backgroundImage = "url('assets/images/" + image + ".jpg')";
 }
-    
-// let weather = new Vue ({
-//   el: '#weather',
-//   // data: {
-//   //   error: '',
-//   //   apiUrl: '',
-//   //   city: '',
-//   //   country: '',
-//   //   icon: '',
-//   //   description: '',
-//   //   results: [],
-//   // },
-//   methods: {
-//     // getPosition: function() {
-//     //   if (navigator.geolocation){
-//     //     navigator.geolocation.getCurrentPosition(this.getUrl.bind(this));
-//     //   }else{
-//     //     this.error = 'Geolocation is not supported.';
-//     //   }
-//     // },
-//     // getUrl: function(position){
-//     //   const vm = this;
-//     //   if (navigator.geolocation) {
-//     //     //Return the user's longitude and latitude on page load using HTML5 geolocation API
-//     //     let currentPosition;
-//     //     currentPosition = position;
-//     //     latTest = currentPosition.coords.latitude;
-//     //     lonTest = currentPosition.coords.longitude;
-//     //   }
-//     // },
-//     getWeather: function(){
-//       let url = buildWeatherUrl(this.lat, this.lon);
-//       console.log(this.lon)
-//       console.log(url);
-//       // axios
-//       // .get(url)
-//       // .catch(function (error) {
-//       //   console.log(error);
-//       // })
-//       // .then(function (response) {
-//       //   console.log(response.data);
-//       // });
-//     //   axios.get(this.$data.apiUrl).then(response => {
-//     //     console.log(response.data.results);
-//     //     console.log(response.data);
-//     //     this.city = response.data.name;
-//     //     this.results = response.data;
-//     //   }).catch( error => { console.log(error); });
-//     }
-//   },
-//   beforeMount() {
 
-//   },
-//   mounted() {
-//     console.log(data);
-//     // this.getWeather();
-//   }
-// });
+
+let quote = new Vue ({
+  el: '#quote',
+  data: {
+    quote: '',
+    author: '',
+  },
+  methods: {
+    getQuote () {
+      let url = "http://quotes.rest/qod.json?category=inspire";
+      axios
+        .get(url)
+        .then(response => {
+          this.quote = response.data.contents.quotes[0].quote;
+          this.author = response.data.contents.quotes[0].author;
+        })
+        .catch( error => {console.log(error);});
+    }
+  },
+  mounted() {
+    this.getQuote();
+    console.log(this.quote);
+  }
+});
