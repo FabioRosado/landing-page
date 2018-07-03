@@ -80,12 +80,13 @@ let quote = new Vue ({
   },
   methods: {
     getQuote () {
-      let url = "http://quotes.rest/qod.json?category=inspire";
+      let url = "http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&callback=";
       axios
         .get(url)
         .then(response => {
-          this.quote = response.data.contents.quotes[0].quote;
-          this.author = response.data.contents.quotes[0].author;
+          console.log(response.data);
+          this.quote = response.data[0].content.slice(3, -5);
+          this.author = response.data[0].title;
         })
         .catch( error => {console.log(error);});
     }
