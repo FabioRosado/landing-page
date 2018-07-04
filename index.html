@@ -20,20 +20,19 @@
       </h4>
     </div>
 
-    <div class="container">
-       <div class="quote" id="quote">
+    <div class="container" id="quote">
+       <div class="quote">
         <div class=text>
-          <p>"{{ quote }}"</p>
+          <p>{{ quote }}</p>
         </div>
          <div class="author">
-           — {{ author }}
+           {{ author }}
          </div>
         </div>
         <div class="social-quote">
           <div class="social-icons">
-            <i class="fab fa-facebook-f fa-lg"></i>
-            <i class="fab fa-twitter fa-lg"></i>
-            <i class="fas fa-sync fa-lg"></i>
+            <i v-on:click="shareTwitter" class="fab fa-twitter fa-lg"></i>
+            <i v-on:click="getQuote" class="fas fa-sync fa-lg"></i>
           </div>
          </div>
     </div>
