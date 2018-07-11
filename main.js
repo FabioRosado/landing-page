@@ -98,3 +98,26 @@ let quote = new Vue ({
     this.getQuote();
   }
 });
+
+// Date information
+const monthNames = ["January", "February", "March", "April",
+                    "May", "June", "July", "August", "September",
+                    "October", "November", "December"];
+let currentTime = new Date();
+const day = currentTime.getDate();
+const month = monthNames[currentTime.getMonth()];
+const year = currentTime.getFullYear();
+
+let hours = currentTime.getHours();
+let minutes = currentTime.getMinutes();
+hours = (hours < 10 ? "0": "") + hours;
+minutes = (minutes < 10 ? "0": "") + minutes;
+
+currentDate = `${day}, ${month} ${year}`;
+time = `${hours}:${minutes}`
+
+document.getElementById("clock").firstChild.nodeValue = time + "\n" + currentDate;
+// document.getElementById("date").firstChild.nodeValue = date;
+
+// clock = document.getElementById("time").onload();
+// clock.innerText = time + "\n" + currentDate;
