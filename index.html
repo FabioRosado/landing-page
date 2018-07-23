@@ -12,7 +12,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
-<body id="pagebody">
+<body>
   <div class="container is-fluid">
     <div id="weather">
       <h4 id="is-right">
@@ -20,7 +20,7 @@
       </h4>
     </div>
 
-    <div class="container" id="quote">
+    <div class="container" id="app">
        <div class="quote">
         <div class=text>
           <p>{{ quote }}</p>
@@ -35,28 +35,29 @@
             <i v-on:click="getQuote" class="fas fa-sync fa-lg"></i>
           </div>
          </div>
-    </div>
-  </div>
 
-  <div class="bottom-bar">
-    <div class="columns">
-      <div class="column">
-        <div id="todo">
-          <h4><i class="far fa-check-square fa-lg"></i> To Do List</h4>
+         <div class="bottom-bar">
+          <div class="columns">
+            <div class="column">
+              <div id="todo">
+                <h4><i class="far fa-check-square fa-lg"></i> To Do List</h4>
+              </div>
+            </div>
+            <div class="column">
+              <div id="notes">
+                <h4><i class="far fa-sticky-note fa-lg"></i> Notes</h4>
+              </div>
+            </div>
+            <div class="column is-offset-4">
+              <div id="time">
+                <span class="is-size-5">{{time}}</span> <br> <span class="is-size-6">{{date}}</span>
+              </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="column">
-        <div id="notes">
-          <h4><i class="far fa-sticky-note fa-lg"></i> Notes</h4>
-        </div>
-      </div>
-      <div class="column is-offset-7">
-        <div id="time">
-          {{date}}
-        </div>
-      </div>
     </div>
-  </div>
+
 
 <script src="main.js"></script>
 </body>

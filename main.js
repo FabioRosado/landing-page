@@ -1,6 +1,6 @@
 // Constant variables
 const weatherUrl = "http://api.openweathermap.org/data/2.5/weather?units=metric";
-const weatherApi = "&APPID=" +  "{your API Key here}";
+const weatherApi = "&APPID=" +  "{Your API Key Here}";
 var data = {};
 
 // Build open weather url
@@ -34,7 +34,7 @@ function getWeather(lat, lon){
     data.temp = response.data.main.temp;
     data.weather = response.data.weather[0].description;
     data.icon = response.data.weather[0].main;
-    console.log(response.data);
+    console.log(response);
 
     weather = document.getElementById('weather-details');
     weather.innerHTML = getIcon(data.icon) + data.temp + '°C and ' + data.weather + ' in ' + data.city + ", " + data.country;
@@ -73,10 +73,20 @@ function updateBg(image){
 
 
 let quote = new Vue ({
-  el: '#quote',
+  el: '#app',
   data: {
     quote: '',
     author: '',
+    monthNames: ["January", "February", "March", "April",
+                 "May", "June", "July", "August", "September",
+                 "October", "November", "December"],
+    day: '31',
+    month: 'February',
+    year: '1209',
+    hours: 0,
+    minutes: 0,
+    date: '',
+    time: ''
   },
   methods: {
     getQuote() {
@@ -92,32 +102,28 @@ let quote = new Vue ({
     },
     shareTwitter() {
       window.open('https://twitter.com/intent/tweet?hashtags=quote&text=' + this.quote + "  " +  this.author, 'popup','width=400,height=200')
+    },
+    getCurrentTime() {
+      let currentDate = new Date();
+      this.day = currentDate.getDate();
+      this.month = this.monthNames[currentDate.getMonth()];
+      this.year = currentDate.getFullYear();
+
+      this.date = `${this.day}, ${this.month} ${this.year}`;
+      console.log(this.date);
+
+      let hour = currentDate.getHours();
+      let minute = currentDate.getMinutes();
+
+      this.hours = (hour < 10 ? "0": "") + hour;
+      this.minutes = (minute < 10 ? "0": "") + minute;
+
+      this.time = `${this.hours}:${this.minutes}`
+
     }
   },
   mounted() {
     this.getQuote();
+    this.getCurrentTime();
   }
 });
-
-// Date information
-const monthNames = ["January", "February", "March", "April",
-                    "May", "June", "July", "August", "September",
-                    "October", "November", "December"];
-let currentTime = new Date();
-const day = currentTime.getDate();
-const month = monthNames[currentTime.getMonth()];
-const year = currentTime.getFullYear();
-
-let hours = currentTime.getHours();
-let minutes = currentTime.getMinutes();
-hours = (hours < 10 ? "0": "") + hours;
-minutes = (minutes < 10 ? "0": "") + minutes;
-
-currentDate = `${day}, ${month} ${year}`;
-time = `${hours}:${minutes}`
-
-document.getElementById("clock").firstChild.nodeValue = time + "\n" + currentDate;
-// document.getElementById("date").firstChild.nodeValue = date;
-
-// clock = document.getElementById("time").onload();
-// clock.innerText = time + "\n" + currentDate;
