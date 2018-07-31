@@ -11,6 +11,15 @@ p, h4 {
     font-family: sans-serif;
 }
 
+button {
+    padding: 0;
+    border: none;
+    background: none;
+    color: white;
+    font-size: 100%;
+    font-weight: 400;
+}
+
 .text {
     text-justify: auto;
 }
@@ -68,7 +77,7 @@ p, h4 {
     float: right;
 }
 
-
+/* Things related to bottom bar */
 .bottom-bar {
     color: white;
     position: fixed;
@@ -81,4 +90,10 @@ p, h4 {
 #time {
     line-height: 1;
     text-align: center;
+}
+
+.todo {
+    background-color: white;
+    height: 15rem;
+    
 }

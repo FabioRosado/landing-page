@@ -37,10 +37,24 @@
          </div>
 
          <div class="bottom-bar">
+           <div class="columns">
+             <div class="column">
+               <div v-if="todo" class="todo">
+                 <div class="task" v-for="(task, i) in tasks" :key="task.text">
+                  <p class="task__text" :class="{task__text__completed: task.completed}">{{task.text}}</p>
+                 </div>
+               </div>
+             </div>
+             <div class="column is-offset-8">
+               <!-- Notes app -->
+             </div>
+           </div>
           <div class="columns">
             <div class="column">
               <div id="todo">
-                <h4><i class="far fa-check-square fa-lg"></i> To Do List</h4>
+                <button v-on:click="todo = !todo">
+                  <h4><i class="far fa-check-square fa-lg"></i> To Do List</h4>
+                </button>
               </div>
             </div>
             <div class="column">
