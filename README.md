@@ -1,6 +1,6 @@
 # Landing Page
 
-A landing page that displays inspirational quotes and current weather (geolocation needs to be enabled).
+A landing page that displays inspirational quotes, shows current weather (geolocation needs to be enabled) and has a working To Do List.
 
 ## Getting Started
 
@@ -8,9 +8,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-You need to register at [OpenWeatherMap](https://openweathermap.org/) and subscribe for a free api key of the Current weather data from [this page](https://openweathermap.org/api).
+You need to register at [OpenWeatherMap](https://openweathermap.org/) and subscribe for a free API key of the Current weather data from [this page](https://openweathermap.org/api).
 
-Then open the file `main.js` in your favourite editor and add your api key on line 3.
+Then open the file `main.js` in your favourite editor and add your API key on line 3.
 
 ```
 const weatherApi = "&APPID=" +  "{your API Key here}";
@@ -19,6 +19,28 @@ const weatherApi = "&APPID=" +  "{your API Key here}";
 ## Deployment
 
 Simply open the `index.html` page on your favourite editor and everything will work fine.
+
+## Things you can do
+
+The landing page is meant to provide you with some basic things that could be useful to you without opening any other application or site.
+
+### The Quote
+
+You can get a new quote by pressing the icon with two arrows in a circle. If the quote is something you enjoy, you can share directly to your Twitter account by pressing the Twitter icon.
+
+### The To Do List
+
+To open the to-do list you need to press the button/icon that says "To Do List" a new area will be visible and you can write your to-do items in the list.
+
+You can tick an item by simply pressing the checkbox if you would like to delete the item all you need to do is press the text and the item will be deleted.
+
+### The Notes
+Soon.
+
+### The Watch
+This is meant to be very simple, it shows you the current time and date. 
+
+Unfortunately, the watch isn't yet being updated every minute yet.
 
 ## Built With
 
