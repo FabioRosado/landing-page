@@ -59,10 +59,17 @@ button {
     .quote {
         margin-left: 10%;
         width: 80%;
+        margin-top: 25%;
     }
     
     #weather {
         margin-right: 5%;
+        padding-left: 1rem;
+    }
+
+    .todo {
+        padding-right:50%;
+        width: 15rem;
     }
 }
 
@@ -95,5 +102,23 @@ button {
 .todo {
     background-color: white;
     height: 15rem;
-    
+    width: 12rem;
+    padding-left: 15px;
+    padding-top: 15px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+#todo-button {
+    color:rgba(0, 0, 0, 0.74);
+    text-align: left;
+}
+
+#new-todo {
+    position: relative;
+    margin-right: 1rem;
+}
+
+#todo-item {
+    white-space: nowrap;
 }

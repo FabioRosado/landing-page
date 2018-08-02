@@ -40,11 +40,25 @@
            <div class="columns">
              <div class="column">
                <div v-if="todo" class="todo">
-                 <div class="task" v-for="(task, i) in tasks" :key="task.text">
-                  <p class="task__text" :class="{task__text__completed: task.completed}">{{task.text}}</p>
-                 </div>
-               </div>
-             </div>
+                  <form v-on:submit.prevent="addNewTodo">
+                      <input
+                       v-model="newTodoText"
+                       id="new-todo"
+                       placeholder="Add a new task"
+                      >
+                    </form>
+                    <ul>
+                      <li
+                        is="todo-item"
+                        v-for="(todo, index) in todos"
+                        v-bind:key="todo.id"
+                        v-bind:completed="todo.completed"
+                        v-bind:title="todo.title"
+                        v-on:remove="todos.splice(index, 1)"
+                      ></li>
+                    </ul>
+                  </div>
+                </div>
              <div class="column is-offset-8">
                <!-- Notes app -->
              </div>
