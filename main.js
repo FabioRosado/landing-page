@@ -10,7 +10,6 @@ function buildWeatherUrl(latitude, longitude) {
   }
 
 // Get icon from the weather status
-
 function getIcon(icon){
   var icon = icon.toLowerCase();
   switch (icon) {
@@ -31,14 +30,16 @@ function getIcon(icon){
   }
 }
 
-// function updateBg(image){
-//   var image = image.toLowerCase();
-//   var sheet = document.styleSheets[0];
-//   var rulesList = sheet.cssRules || sheet.rules;
-//   var htmlRule = rulesList[0];
-//   htmlRule.style.backgroundImage = "url('assets/images/" + image + ".jpg')";
-// }
+// Change background image depending of the weather
+function updateBg(image){
+  var image = image.toLowerCase();
+  var sheet = document.styleSheets[0];
+  var rulesList = sheet.cssRules || sheet.rules;
+  var htmlRule = rulesList[0];
+  htmlRule.style.backgroundImage = "url('assets/images/" + image + ".jpg')";
+}
 
+// Vue Components
 Vue.component('weather', {
   template: `
     <h4>
@@ -124,7 +125,7 @@ let quote = new Vue ({
         axios
           .get(url)
           .catch(function(error){
-            vm.weatherDetails = error;
+            console.error(error);
           })
           .then(function (response){
             const city = response.data.name;
@@ -135,6 +136,7 @@ let quote = new Vue ({
 
             vm.weatherIcon = getIcon(icon);
             vm.weatherDetails = `${temp}°C and ${weather} in ${city}, ${country}`;
+            updateBg(icon);
           });
 
     },
