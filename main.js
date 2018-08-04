@@ -9,73 +9,49 @@ function buildWeatherUrl(latitude, longitude) {
     return url;
   }
 
-
-if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function (position) {
-    var lat =  position.coords.latitude;
-    var lon =  position.coords.longitude;
-    getWeather(lat, lon);
-    });
-  } else {
-    console.log("Geolocation is not supported by this browser.");
-  }
-
-
-function getWeather(lat, lon){
-  let url = buildWeatherUrl(lat, lon);
-    axios
-  .get(url)
-  .catch(function (error) {
-    console.log(error);
-  })
-  .then(function (response) {
-    data.city = response.data.name;
-    data.country = response.data.sys.country;
-    data.temp = response.data.main.temp;
-    data.weather = response.data.weather[0].description;
-    data.icon = response.data.weather[0].main;
-    console.log(response);
-
-    weather = document.getElementById('weather-details');
-    weather.innerHTML = getIcon(data.icon) + data.temp + '°C and ' + data.weather + ' in ' + data.city + ", " + data.country;
-
-    updateBg(data.icon);
-  });
-}
+// Get icon from the weather status
 
 function getIcon(icon){
   var icon = icon.toLowerCase();
   switch (icon) {
     case 'thunderstorm':
-      return '<i class="fas fa-bolt fa-lg"></i>';
+      return "fas fa-bolt fa-lg";
     case 'drizzle':
-      return '<i class="fas fa-tint fa-lg"></i>';
+      return "fas fa-tint fa-lg";
     case 'rain':
-      return '<i class="fas fa-umbrella fa-lg"></i>';
+      return "fas fa-umbrella fa-lg";
     case 'snow':
-      return '<i class="fas fa-snowflake fa-lg"></i>';
+      return "fas fa-snowflake fa-lg";
     case 'atmosphere':
-      return '<i class="fas fa-braille fa-lg"></i>';
+      return "fas fa-braille fa-lg";
     case 'clear':
-      return '<i class="fas fa-sun fa-lg"></i>';
+      return "fas fa-sun fa-lg";
     case 'clouds':
-      return '<i class="fas fa-cloud fa-lg"></i>';
+      return "fas fa-cloud fa-lg";
   }
 }
 
-function updateBg(image){
-  var image = image.toLowerCase();
-  var sheet = document.styleSheets[0];
-  var rulesList = sheet.cssRules || sheet.rules;
-  var htmlRule = rulesList[0];
-  htmlRule.style.backgroundImage = "url('assets/images/" + image + ".jpg')";
-}
+// function updateBg(image){
+//   var image = image.toLowerCase();
+//   var sheet = document.styleSheets[0];
+//   var rulesList = sheet.cssRules || sheet.rules;
+//   var htmlRule = rulesList[0];
+//   htmlRule.style.backgroundImage = "url('assets/images/" + image + ".jpg')";
+// }
+
+Vue.component('weather', {
+  template: `
+    <h4>
+    <i :class="weatherIcon"></i> {{weatherDetails}}
+    </h4>`,
+  props: ['weatherIcon', 'weatherDetails']
+});
 
 Vue.component('todo-item', {
   template: `
     <li id="todo-item">
-    <input type="checkbox" name="To do Done"> <button id="todo-button" v-on:click="$emit(\'remove\')">{{title}}</button>
-      </li>
+      <input type="checkbox" name="To do Done"> <button id="todo-button" v-on:click="$emit(\'remove\')">{{title}}</button>
+    </li>
   `,
   props: ['title']
 });
@@ -97,7 +73,9 @@ let quote = new Vue ({
     time: '',
     todo: true,
     newTodoText: '',
-    todos: []
+    todos: [],
+    weatherIcon: '',
+    weatherDetails: '',
   },
   methods: {
     getQuote() {
@@ -105,7 +83,6 @@ let quote = new Vue ({
       axios
         .get(url)
         .then(response => {
-          console.log(response.data);
           this.quote = '"' + response.data.quote.body + '"';
           this.author = "—  " + response.data.quote.author;
         })
@@ -121,7 +98,6 @@ let quote = new Vue ({
       this.year = currentDate.getFullYear();
 
       this.date = `${this.day}, ${this.month} ${this.year}`;
-      console.log(this.date);
 
       let hour = currentDate.getHours();
       let minute = currentDate.getMinutes();
@@ -132,13 +108,46 @@ let quote = new Vue ({
       this.time = `${this.hours}:${this.minutes}`
 
     },
+    geolocation() {
+      if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this.getWeather);
+      } else {
+        this.weatherDetails = "Geolocations is not supported";
+      }
+      },
+      getWeather(position) {
+        const vm = this;
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        const url = buildWeatherUrl(lat, lon);
+
+        axios
+          .get(url)
+          .catch(function(error){
+            vm.weatherDetails = error;
+          })
+          .then(function (response){
+            const city = response.data.name;
+            const country = response.data.sys.country;
+            const temp = response.data.main.temp;
+            const weather = response.data.weather[0].description;
+            const icon = response.data.weather[0].main;
+
+            vm.weatherIcon = getIcon(icon);
+            vm.weatherDetails = `${temp}°C and ${weather} in ${city}, ${country}`;
+          });
+
+    },
     addNewTodo() {
       this.todos.push({
         id: this.nextTodoId++,
         title: this.newTodoText,
-      })
-      this.newTodoText = ''
+      });
+      this.newTodoText = '';
     }
+  },
+  beforeMount() {
+    this.geolocation();
   },
   mounted() {
     this.getQuote();

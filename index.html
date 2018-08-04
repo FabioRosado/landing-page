@@ -14,13 +14,14 @@
 </head>
 <body>
   <div class="container is-fluid">
-    <div id="weather">
-      <h4 id="is-right">
-          <i class=weather-icon></i><span id="weather-details"></span>
-      </h4>
-    </div>
-
     <div class="container" id="app">
+      <div id="weather">
+        <h4 id="is-right"
+            is="weather"
+            v-bind:weather-icon="weatherIcon"
+            v-bind:weather-details="weatherDetails">{{weatherDetails}}
+        </h4>
+      </div>
        <div class="quote">
         <div class=text>
           <p>{{ quote }}</p>
