@@ -53,15 +53,35 @@
                         is="todo-item"
                         v-for="(todo, index) in todos"
                         v-bind:key="todo.id"
-                        v-bind:completed="todo.completed"
                         v-bind:title="todo.title"
                         v-on:remove="todos.splice(index, 1)"
                       ></li>
                     </ul>
                   </div>
                 </div>
-             <div class="column is-offset-8">
-               <!-- Notes app -->
+             <div class="column is-10">
+               <div v-if="note" class="todo">
+                <ul>
+                  <button v-on:click="newNote = !newNote">+ Add note</button>
+                  <form v-if="newNote" v-on:submit.prevent="addNewNote">
+                    <input
+                     v-model="newNoteTitle"
+                     placeholder = "Your Title"
+                    >
+                    <textarea cols="14" rows="7" v-model="newNoteText"> 
+                      Your Note 
+                    </textarea>
+                    <input type="submit" value="Submit">
+                  </form>
+                  <li
+                    is="notes"
+                    v-for="(note, index) in notes"
+                    v-bind:key="note.id"
+                    v-bind:title="todo.title"
+                    v-bind:text="todo.text"
+                  ></li>
+                </ul>
+              </div>
              </div>
            </div>
           <div class="columns">
@@ -74,7 +94,9 @@
             </div>
             <div class="column">
               <div id="notes">
-                <h4><i class="far fa-sticky-note fa-lg"></i> Notes</h4>
+                <button v-on:click="note = !note">
+                  <h4><i class="far fa-sticky-note fa-lg"></i> Notes</h4>
+                </button>
               </div>
             </div>
             <div class="column is-offset-4">

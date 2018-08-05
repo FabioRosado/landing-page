@@ -57,6 +57,15 @@ Vue.component('todo-item', {
   props: ['title']
 });
 
+Vue.component('notes', {
+  template: `
+    <li id="todo-button">
+      {{title}} <br> {{text}}
+    </li>
+  `,
+  props: ['title', 'text']
+});
+
 let quote = new Vue ({
   el: '#app',
   data: {
@@ -75,6 +84,11 @@ let quote = new Vue ({
     todo: true,
     newTodoText: '',
     todos: [],
+    note: true,
+    newNote: false,
+    newNoteTitle: '',
+    newNoteText: '',
+    notes: [],
     weatherIcon: '',
     weatherDetails: '',
   },
@@ -146,10 +160,22 @@ let quote = new Vue ({
         title: this.newTodoText,
       });
       this.newTodoText = '';
-    }
+      console.log(this.todos[0]);
+    },
+  addNewNote() {
+    this.notes.push({
+      id: this.newNoteId++,
+      title: this.newNoteTitle,
+      text: this.newNoteText,
+      open: false,
+    });
+    this.newNoteTitle = '';
+    this.newNoteText = '';
+    console.log(this.notes[0]);
   },
+},
   beforeMount() {
-    this.geolocation();
+    // this.geolocation();
   },
   mounted() {
     this.getQuote();

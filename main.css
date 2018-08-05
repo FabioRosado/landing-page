@@ -11,14 +11,14 @@ p, h4 {
     font-family: sans-serif;
 }
 
-button {
+/* button {
     padding: 0;
     border: none;
     background: none;
     color: white;
     font-size: 100%;
     font-weight: 400;
-}
+} */
 
 .text {
     text-justify: auto;
