@@ -51,7 +51,7 @@ Vue.component('weather', {
 Vue.component('todo-item', {
   template: `
     <li id="todo-item">
-      <input type="checkbox" name="To do Done"> <button id="todo-button" v-on:click="$emit(\'remove\')">{{title}}</button>
+      <input type="checkbox" name="To do Done"> <button id="left-grey-color" v-on:click="$emit(\'remove\')">{{title}}</button>
     </li>
   `,
   props: ['title']
@@ -65,7 +65,7 @@ Vue.component('notes-item', {
     <a v-on:click="show = !show" id="notes-list">
       <li>
         {{title}}
-        <p v-if="show">{{text}}</p>
+        <p v-if="show">{{text}}</p> <button id="move-left-2rem" v-on:click="$emit(\'remove\')">Delete</button>
       </li>
     </a>
   `,

@@ -80,6 +80,7 @@
                     v-bind:title="note.title"
                     v-bind:text="note.text"
                     v-bind:show="note.show"
+                    v-on:remove="notes.splice(index, 1)"
                   ></li>
                 </ul>
               </div>
