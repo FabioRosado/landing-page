@@ -62,14 +62,14 @@
              <div class="column is-10">
                <div v-if="note" class="todo">
                 <ul>
-                  <button v-on:click="newNote = !newNote">+ Add note</button>
+                  <a v-on:click="newNote = !newNote"><button>+ Add note</button> <span id="button-close" v-if="newNote"><i class="far fa-times-circle"></i></span></a>
                   <form v-if="newNote" v-on:submit.prevent="addNewNote">
                     <input
                      v-model="newNoteTitle"
                      placeholder = "Your Title"
                     >
-                    <textarea cols="14" rows="7" v-model="newNoteText"> 
-                      Your Note 
+                    <textarea cols="14" rows="5" v-model="newNoteText"> 
+                      Your Note
                     </textarea>
                     <input type="submit" value="Submit"> <button v-on:click="clearNoteFields"> Clear</button>
                   </form>

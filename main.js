@@ -94,13 +94,7 @@ let vueApp = new Vue ({
     newNote: false,
     newNoteTitle: '',
     newNoteText: '',
-    notes: [
-      {
-       id: 1,
-       title: 'test',
-       text: 'this is a big test!',
-       show: false}
-    ],
+    notes: [],
     weatherIcon: '',
     weatherDetails: '',
   },
