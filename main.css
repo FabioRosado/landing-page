@@ -122,3 +122,15 @@ p, h4 {
 #todo-item {
     white-space: nowrap;
 }
+
+#notes-list {
+    color:rgba(0, 0, 0, 0.74);
+    margin-top: 0.5rem;
+    border-width: 2px;
+    border-bottom-color: #f5f5f5;
+    border-bottom-style: solid;
+    width: 90%;
+    margin: 0.5rem;
+    padding-bottom: 0.7rem;
+    display: block;
+}

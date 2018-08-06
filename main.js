@@ -58,12 +58,18 @@ Vue.component('todo-item', {
 });
 
 Vue.component('notes-item', {
+  data: function() {
+    return {'show': false};
+  },
   template: `
-    <li id="todo-button">
-      {{title}} <br> {{text}}
-    </li>
+    <a v-on:click="show = !show" id="notes-list">
+      <li>
+        {{title}}
+        <p v-if="show">{{text}}</p>
+      </li>
+    </a>
   `,
-  props: ['title', 'text', 'open']
+  props: {'title': {type: String}, 'text': {type: String}}
 });
 
 let vueApp = new Vue ({
@@ -93,7 +99,7 @@ let vueApp = new Vue ({
        id: 1,
        title: 'test',
        text: 'this is a big test!',
-       open: false}
+       show: false}
     ],
     weatherIcon: '',
     weatherDetails: '',
@@ -162,17 +168,20 @@ let vueApp = new Vue ({
     },
     addNewTodo() {
       this.todos.push({
-        id: this.nextTodoId++,
+        id: this.todos.length + 1,
         title: this.newTodoText,
       });
       this.newTodoText = '';
     },
   addNewNote() {
+    if (this.newNoteTitle == '') {
+      this.newNoteTitle = "Note " + this.notes.length;
+    }
+
     this.notes.push({
-      id: this.nextNoteId++,
+      id: this.notes.length + 1,
       title: this.newNoteTitle,
       text: this.newNoteText,
-      open: false,
     });
     this.clearNoteFields();
 
