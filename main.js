@@ -77,14 +77,6 @@ let vueApp = new Vue ({
   data: {
     quote: '',
     author: '',
-    monthNames: ["January", "February", "March", "April",
-                 "May", "June", "July", "August", "September",
-                 "October", "November", "December"],
-    day: '31',
-    month: 'February',
-    year: '1209',
-    hours: 0,
-    minutes: 0,
     date: '',
     time: '',
     todo: true,
@@ -113,20 +105,21 @@ let vueApp = new Vue ({
       window.open('https://twitter.com/intent/tweet?hashtags=quote&text=' + this.quote + "  " +  this.author, 'popup','width=400,height=200')
     },
     getCurrentTime() {
+      const monthNames = ["January", "February", "March", "April",
+                          "May", "June", "July", "August", "September",
+                          "October", "November", "December"]
       let currentDate = new Date();
-      this.day = currentDate.getDate();
-      this.month = this.monthNames[currentDate.getMonth()];
-      this.year = currentDate.getFullYear();
 
-      this.date = `${this.day}, ${this.month} ${this.year}`;
+      // Add a zero if a single digit
+      let hours = (currentDate.getHours() < 10 ? "0": "") + currentDate.getHours();
+      let minutes = (currentDate.getMinutes() < 10 ? "0": "") + currentDate.getMinutes();
 
-      let hour = currentDate.getHours();
-      let minute = currentDate.getMinutes();
+      const day = currentDate.getDate();
+      const month = monthNames[currentDate.getMonth()];
+      const year = currentDate.getFullYear();
 
-      this.hours = (hour < 10 ? "0": "") + hour;
-      this.minutes = (minute < 10 ? "0": "") + minute;
-
-      this.time = `${this.hours}:${this.minutes}`
+      this.date = `${day}, ${month} ${year}`
+      this.time = `${hours}:${minutes}`
 
     },
     geolocation() {
@@ -183,7 +176,7 @@ let vueApp = new Vue ({
   clearNoteFields() {
     this.newNoteTitle = '';
     this.newNoteText = '';
-  }
+  },
 },
   beforeMount() {
     // this.geolocation();
@@ -191,5 +184,5 @@ let vueApp = new Vue ({
   mounted() {
     this.getQuote();
     this.getCurrentTime();
-  }
+  },
 });
