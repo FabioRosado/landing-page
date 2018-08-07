@@ -31,7 +31,7 @@
          </div>
         </div>
         <div class="social-quote">
-          <div class="social-icons">
+          <div class="social-icons is-clickable">
             <i v-on:click="shareTwitter" class="fab fa-twitter fa-lg"></i>
             <i v-on:click="getQuote" class="fas fa-sync fa-lg"></i>
           </div>
@@ -62,7 +62,7 @@
              <div class="column is-10">
                <div v-if="note" class="todo">
                 <ul>
-                  <a v-on:click="newNote = !newNote"><button>+ Add note</button> <span id="button-close" v-if="newNote"><i class="far fa-times-circle"></i></span></a>
+                  <a v-on:click="newNote = !newNote"><button class="is-clickable">+ Add note</button> <span id="button-close" v-if="newNote"><i class="far fa-times-circle"></i></span></a>
                   <form v-if="newNote" v-on:submit.prevent="addNewNote">
                     <input
                      v-model="newNoteTitle"
@@ -71,7 +71,7 @@
                     <textarea cols="14" rows="5" v-model="newNoteText"> 
                       Your Note
                     </textarea>
-                    <input type="submit" value="Submit"> <button v-on:click="clearNoteFields"> Clear</button>
+                    <input class="is-clickable" type="submit" value="Submit"> <button class="is-clickable" v-on:click="clearNoteFields"> Clear</button>
                   </form>
                   <li
                     is="notes-item"
@@ -89,16 +89,16 @@
           <div class="columns">
             <div class="column">
               <div id="todo">
-                <button v-on:click="todo = !todo">
+                <span class="is-clickable" v-on:click="todo = !todo">
                   <h4><i class="far fa-check-square fa-lg"></i> To Do List</h4>
-                </button>
+                </span>
               </div>
             </div>
             <div class="column">
               <div>
-                <button v-on:click="note = !note">
+                <span class="is-clickable" v-on:click="note = !note">
                   <h4><i class="far fa-sticky-note fa-lg"></i> Notes</h4>
-                </button>
+                </span>
               </div>
             </div>
             <div class="column is-offset-4">

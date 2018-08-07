@@ -24,6 +24,10 @@ p, h4 {
     font-weight: 400;
 } */
 
+.is-clickable {
+    cursor: pointer;
+}
+
 .text {
     text-justify: auto;
 }
