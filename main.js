@@ -1,7 +1,6 @@
 // Constant variables
 const weatherUrl = "http://api.openweathermap.org/data/2.5/weather?units=metric";
 const weatherApi = "&APPID=" +  "{Your API Key Here}";
-var data = {};
 
 // Build open weather url
 function buildWeatherUrl(latitude, longitude) {
@@ -116,12 +115,10 @@ let vueApp = new Vue ({
   data: {
     quote: '',
     author: '',
-    // date: '',
-    // time: '',
-    todo: true,
+    todo: false,
     newTodoText: '',
     todos: [],
-    note: true,
+    note: false,
     newNote: false,
     newNoteTitle: '',
     newNoteText: '',
@@ -143,24 +140,6 @@ let vueApp = new Vue ({
     shareTwitter() {
       window.open('https://twitter.com/intent/tweet?hashtags=quote&text=' + this.quote + "  " +  this.author, 'popup','width=400,height=200')
     },
-    // getCurrentTime() {
-    //   const monthNames = ["January", "February", "March", "April",
-    //                       "May", "June", "July", "August", "September",
-    //                       "October", "November", "December"]
-    //   let currentDate = new Date();
-
-    //   // Add a zero if a single digit
-    //   let hours = (currentDate.getHours() < 10 ? "0": "") + currentDate.getHours();
-    //   let minutes = (currentDate.getMinutes() < 10 ? "0": "") + currentDate.getMinutes();
-
-    //   const day = currentDate.getDate();
-    //   const month = monthNames[currentDate.getMonth()];
-    //   const year = currentDate.getFullYear();
-
-    //   this.date = `${day}, ${month} ${year}`
-    //   this.time = `${hours}:${minutes}`
-
-    // },
     geolocation() {
       if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.getWeather);
@@ -168,29 +147,28 @@ let vueApp = new Vue ({
         this.weatherDetails = "Geolocations is not supported";
       }
       },
-      getWeather(position) {
-        const vm = this;
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        const url = buildWeatherUrl(lat, lon);
+    getWeather(position) {
+      const vm = this;
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      const url = buildWeatherUrl(lat, lon);
 
-        axios
-          .get(url)
-          .catch(function(error){
-            console.error(error);
-          })
-          .then(function (response){
-            const city = response.data.name;
-            const country = response.data.sys.country;
-            const temp = response.data.main.temp;
-            const weather = response.data.weather[0].description;
-            const icon = response.data.weather[0].main;
+      axios
+        .get(url)
+        .catch(function(error){
+          console.error(error);
+        })
+        .then(function (response){
+          const city = response.data.name;
+          const country = response.data.sys.country;
+          const temp = response.data.main.temp;
+          const weather = response.data.weather[0].description;
+          const icon = response.data.weather[0].main;
 
-            vm.weatherIcon = getIcon(icon);
-            vm.weatherDetails = `${temp}°C and ${weather} in ${city}, ${country}`;
-            updateBg(icon);
-          });
-
+          vm.weatherIcon = getIcon(icon);
+          vm.weatherDetails = `${temp}°C and ${weather} in ${city}, ${country}`;
+          updateBg(icon);
+        });
     },
     addNewTodo() {
       this.todos.push({
@@ -199,29 +177,25 @@ let vueApp = new Vue ({
       });
       this.newTodoText = '';
     },
-  addNewNote() {
-    if (this.newNoteTitle == '') {
-      this.newNoteTitle = "Note " + this.notes.length;
-    }
+    addNewNote() {
+      if (this.newNoteTitle == '') {
+        this.newNoteTitle = "Note " + this.notes.length;
+      }
 
-    this.notes.push({
-      id: this.notes.length + 1,
-      title: this.newNoteTitle,
-      text: this.newNoteText,
-    });
-    this.clearNoteFields();
-
-  },
-  clearNoteFields() {
-    this.newNoteTitle = '';
-    this.newNoteText = '';
-  },
+      this.notes.push({
+        id: this.notes.length + 1,
+        title: this.newNoteTitle,
+        text: this.newNoteText,
+      });
+      this.clearNoteFields();
+    },
+    clearNoteFields() {
+      this.newNoteTitle = '';
+      this.newNoteText = '';
+    },
 },
-  // beforeMount() {
-  //   // this.geolocation();
-  // },
-  // mounted() {
-  //   this.getQuote();
-    // this.getCurrentTime();
-  // },
+  beforeMount() {
+    this.geolocation();
+    this.getQuote();
+  },
 });
