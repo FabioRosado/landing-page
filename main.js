@@ -4,7 +4,7 @@ const weatherApi = "&APPID=" +  "{Your API Key Here}";
 
 // Build open weather url
 function buildWeatherUrl(latitude, longitude) {
-    var url = weatherUrl + '&lat=' + latitude + '&lon=' + longitude + weatherApi;
+    const url = `${weatherUrl}&lat=${latitude}&lon=${longitude}${weatherApi}`;
     return url;
   }
 
@@ -35,7 +35,7 @@ function updateBg(image){
   var sheet = document.styleSheets[0];
   var rulesList = sheet.cssRules || sheet.rules;
   var htmlRule = rulesList[0];
-  htmlRule.style.backgroundImage = "url('assets/images/" + image + ".jpg')";
+  htmlRule.style.backgroundImage = `url('assets/images/${image}.jpg')`;
 }
 
 // Vue Components
@@ -132,10 +132,10 @@ let vueApp = new Vue ({
       axios
         .get(url)
         .then(response => {
-          this.quote = '"' + response.data.quote.body + '"';
-          this.author = "—  " + response.data.quote.author;
+          this.quote = `"${response.data.quote.body}"`;
+          this.author = `– ${response.data.quote.author}`
         })
-        .catch( error => {console.log(error);});
+        .catch( error => {console.error(error);});
     },
     shareTwitter() {
       window.open('https://twitter.com/intent/tweet?hashtags=quote&text=' + this.quote + "  " +  this.author, 'popup','width=400,height=200')
