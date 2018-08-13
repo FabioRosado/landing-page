@@ -72,13 +72,52 @@ Vue.component('notes-item', {
   props: {'title': {type: String}, 'text': {type: String}}
 });
 
+Vue.component('clock', {
+  template: `
+  <div id="time">
+    <span class="is-size-5">{{time}}</span>
+    <br>
+    <span class="is-size-6">{{date}}</span>
+    </div>
+  `,
+  data() {
+    return {
+      "time": null,
+      "date": null
+    }
+  },
+  created() {
+    this.getTime()
+    setInterval(this.getTime, 1000)
+  },
+  methods: {
+    getTime () {
+      const monthNames = ["January", "February", "March", "April",
+      "May", "June", "July", "August", "September",
+      "October", "November", "December"]
+      let currentDate = new Date();
+
+      // Add a zero if a single digit
+      let hours = (currentDate.getHours() < 10 ? "0": "") + currentDate.getHours();
+      let minutes = (currentDate.getMinutes() < 10 ? "0": "") + currentDate.getMinutes();
+
+      const day = currentDate.getDate();
+      const month = monthNames[currentDate.getMonth()];
+      const year = currentDate.getFullYear();
+
+      this.date = `${day}, ${month} ${year}`
+      this.time = `${hours}:${minutes}`
+    }
+  }
+});
+
 let vueApp = new Vue ({
   el: '#app',
   data: {
     quote: '',
     author: '',
-    date: '',
-    time: '',
+    // date: '',
+    // time: '',
     todo: true,
     newTodoText: '',
     todos: [],
@@ -104,24 +143,24 @@ let vueApp = new Vue ({
     shareTwitter() {
       window.open('https://twitter.com/intent/tweet?hashtags=quote&text=' + this.quote + "  " +  this.author, 'popup','width=400,height=200')
     },
-    getCurrentTime() {
-      const monthNames = ["January", "February", "March", "April",
-                          "May", "June", "July", "August", "September",
-                          "October", "November", "December"]
-      let currentDate = new Date();
+    // getCurrentTime() {
+    //   const monthNames = ["January", "February", "March", "April",
+    //                       "May", "June", "July", "August", "September",
+    //                       "October", "November", "December"]
+    //   let currentDate = new Date();
 
-      // Add a zero if a single digit
-      let hours = (currentDate.getHours() < 10 ? "0": "") + currentDate.getHours();
-      let minutes = (currentDate.getMinutes() < 10 ? "0": "") + currentDate.getMinutes();
+    //   // Add a zero if a single digit
+    //   let hours = (currentDate.getHours() < 10 ? "0": "") + currentDate.getHours();
+    //   let minutes = (currentDate.getMinutes() < 10 ? "0": "") + currentDate.getMinutes();
 
-      const day = currentDate.getDate();
-      const month = monthNames[currentDate.getMonth()];
-      const year = currentDate.getFullYear();
+    //   const day = currentDate.getDate();
+    //   const month = monthNames[currentDate.getMonth()];
+    //   const year = currentDate.getFullYear();
 
-      this.date = `${day}, ${month} ${year}`
-      this.time = `${hours}:${minutes}`
+    //   this.date = `${day}, ${month} ${year}`
+    //   this.time = `${hours}:${minutes}`
 
-    },
+    // },
     geolocation() {
       if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.getWeather);
@@ -178,11 +217,11 @@ let vueApp = new Vue ({
     this.newNoteText = '';
   },
 },
-  beforeMount() {
-    // this.geolocation();
-  },
-  mounted() {
-    this.getQuote();
-    this.getCurrentTime();
-  },
+  // beforeMount() {
+  //   // this.geolocation();
+  // },
+  // mounted() {
+  //   this.getQuote();
+    // this.getCurrentTime();
+  // },
 });
