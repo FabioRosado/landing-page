@@ -18,7 +18,7 @@ const weatherApi = "&APPID=" +  "{your API Key here}";
 
 ## Deployment
 
-Simply open the `index.html` page on your favourite editor and everything will work fine.
+Simply open the `index.html` page on your favourite browser and everything will work fine.
 
 ## Things you can do
 
@@ -30,17 +30,24 @@ You can get a new quote by pressing the icon with two arrows in a circle. If the
 
 ### The To Do List
 
-To open the to-do list you need to press the button/icon that says "To Do List" a new area will be visible and you can write your to-do items in the list.
+To open the to-do list you need to press the icon that says "To Do List" a new area will be visible and you can write your to-do items in the list.
 
 You can tick an item by simply pressing the checkbox if you would like to delete the item all you need to do is press the text and the item will be deleted.
 
 ### The Notes
-Soon.
+To open the notes you just need to press the icon that says "Notes" a new area will be visible, there you can start creating your notes.
+
+To create a new note simply click the button `+ Add note`, when you click the button a form will be shown where you can add a title for the note and then you have the text field where you can write your notes.
+
+_Note: If you forget to provide a title, the note will have the title of `Note <number>`._
+
+Only the title of the notes are shown as a list view, to open the note simply click on the title and you will be able to see the full description of the note.
+
+To delete the note just click the `delete` button.
 
 ### The Watch
 This is meant to be very simple, it shows you the current time and date. 
 
-Unfortunately, the watch isn't yet being updated every minute yet.
 
 ## Built With
 
