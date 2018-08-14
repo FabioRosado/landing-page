@@ -133,7 +133,7 @@ let vueApp = new Vue ({
         .get(url)
         .then(response => {
           this.quote = `"${response.data.quote.body}"`;
-          this.author = `– ${response.data.quote.author}`
+          this.author = `– ${response.data.quote.author}`;
         })
         .catch( error => {console.error(error);});
     },
