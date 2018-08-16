@@ -2,7 +2,7 @@
 
 A landing page that displays quotes, shows current weather (geolocation needs to be enabled) and has a working clock. On top of that you can create a quick to do list and a list of notes.
 
-![Quote and Weather Landing Page](assets/image/weather-quote.png)
+![Quote and Weather Landing Page](assets/images/weather-quote.png)
 
 ## Getting Started
 
