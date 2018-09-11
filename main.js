@@ -8,44 +8,89 @@ function buildWeatherUrl(latitude, longitude) {
     return url;
   }
 
-// Get icon from the weather status
-function getIcon(icon){
-  var icon = icon.toLowerCase();
-  switch (icon) {
-    case 'thunderstorm':
-      return "fas fa-bolt fa-lg";
-    case 'drizzle':
-      return "fas fa-tint fa-lg";
-    case 'rain':
-      return "fas fa-umbrella fa-lg";
-    case 'snow':
-      return "fas fa-snowflake fa-lg";
-    case 'atmosphere':
-      return "fas fa-braille fa-lg";
-    case 'clear':
-      return "fas fa-sun fa-lg";
-    case 'clouds':
-      return "fas fa-cloud fa-lg";
-  }
-}
-
-// Change background image depending of the weather
-function updateBg(image){
-  var image = image.toLowerCase();
-  var sheet = document.styleSheets[0];
-  var rulesList = sheet.cssRules || sheet.rules;
-  var htmlRule = rulesList[0];
-  htmlRule.style.backgroundImage = `url('assets/images/${image}.jpg')`;
-}
-
 // Vue Components
 Vue.component('weather', {
   template: `
     <h4>
-    <i :class="weatherIcon"></i> {{weatherDetails}}
+      <i :class="weatherIcon"></i> {{weatherDetails}}
     </h4>`,
-  props: ['weatherIcon', 'weatherDetails']
+    data: function() {
+      return {
+        weatherIcon: '',
+        weatherDetails: '',
+      }
+    },
+  methods: {
+    geolocation() {
+      navigator.geolocation.getCurrentPosition(this.getCoordinates, this.geolocationError);
+      },
+
+    getCoordinates(position) {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      const url = buildWeatherUrl(lat, lon);
+
+      this.getWeather(url); 
+    },
+    getWeather(url) {
+      const vm = this;
+      axios
+        .get(url)
+        .catch(function(error){
+          console.error(error);
+        })
+        .then(function (response){
+          const city = response.data.name;
+          let country = ''
+          if (city == 'Earth') {
+            country = "Solar System"
+          } else {
+            country = response.data.sys.country;
+          }
+          const temp = response.data.main.temp;
+          const weather = response.data.weather[0].description;
+          let icon = response.data.weather[0].main;
+          vm.weatherIcon = vm.getIcon(icon);
+          vm.weatherDetails = `${temp}°C and ${weather} in ${city}, ${country}`;
+          vm.updateBg(icon);
+    })
+  },
+    geolocationError(error) {
+      const url = buildWeatherUrl(0, 0);
+      this.getWeather(url);
+    },
+    getIcon(icon){
+      var icon = icon.toLowerCase();
+      switch (icon) {
+        case 'thunderstorm':
+          return "fas fa-bolt fa-lg";
+        case 'drizzle':
+          return "fas fa-tint fa-lg";
+        case 'rain':
+          return "fas fa-umbrella fa-lg";
+        case 'snow':
+          return "fas fa-snowflake fa-lg";
+        case 'atmosphere':
+          return "fas fa-braille fa-lg";
+        case 'clear':
+          return "fas fa-sun fa-lg";
+        case 'clouds':
+          return "fas fa-cloud fa-lg";
+      }
+    },
+    updateBg(image){
+      var image = image.toLowerCase();
+      var sheet = document.styleSheets[0];
+      var rulesList = sheet.cssRules || sheet.rules;
+      var htmlRule = rulesList[0];
+      htmlRule.style.backgroundImage = `url('assets/images/${image}.jpg')`;
+    }
+  },
+  beforeMount() {
+    this.geolocation();
+  }
 });
+
 
 Vue.component('todo-item', {
   template: `
@@ -123,8 +168,6 @@ let vueApp = new Vue ({
     newNoteTitle: '',
     newNoteText: '',
     notes: [],
-    weatherIcon: '',
-    weatherDetails: '',
   },
   methods: {
     getQuote() {
@@ -139,36 +182,6 @@ let vueApp = new Vue ({
     },
     shareTwitter() {
       window.open('https://twitter.com/intent/tweet?hashtags=quote&text=' + this.quote + "  " +  this.author, 'popup','width=400,height=200')
-    },
-    geolocation() {
-      if(navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(this.getWeather);
-      } else {
-        this.weatherDetails = "Geolocations is not supported";
-      }
-      },
-    getWeather(position) {
-      const vm = this;
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-      const url = buildWeatherUrl(lat, lon);
-
-      axios
-        .get(url)
-        .catch(function(error){
-          console.error(error);
-        })
-        .then(function (response){
-          const city = response.data.name;
-          const country = response.data.sys.country;
-          const temp = response.data.main.temp;
-          const weather = response.data.weather[0].description;
-          const icon = response.data.weather[0].main;
-
-          vm.weatherIcon = getIcon(icon);
-          vm.weatherDetails = `${temp}°C and ${weather} in ${city}, ${country}`;
-          updateBg(icon);
-        });
     },
     addNewTodo() {
       this.todos.push({
@@ -195,7 +208,6 @@ let vueApp = new Vue ({
     },
 },
   beforeMount() {
-    this.geolocation();
     this.getQuote();
   },
 });
