@@ -59,16 +59,18 @@
                <div v-if="note" class="todo">
                 <ul>
                   <a v-on:click="newNote = !newNote"><button class="is-clickable">+ Add note</button> <span id="button-close" v-if="newNote"><i class="far fa-times-circle"></i></span></a>
-                  <form v-if="newNote" v-on:submit.prevent="addNewNote">
+                  <form id="notes-form" v-if="newNote" v-on:submit.prevent="addNewNote">
                     <input
                      v-model="newNoteTitle"
                      placeholder = "Your Title"
                     >
-                    <textarea cols="14" rows="5" v-model="newNoteText"> 
-                      Your Note
+                    <textarea cols="14" rows="5" v-model="newNoteText" placeholder="Your Note"> 
                     </textarea>
-                    <input class="is-clickable" type="submit" value="Submit"> <button class="is-clickable" v-on:click="clearNoteFields"> Clear</button>
+                    <div id="form-buttons">
+                      <button class="is-clickable" type="submit">Submit</button><button type="hidden" class="is-clickable" v-on:click.prevent="clearNoteFields"> Clear</button>
+                    </div>
                   </form>
+                  
                   <li
                     is="notes-item"
                     v-for="(note, index) in notes"

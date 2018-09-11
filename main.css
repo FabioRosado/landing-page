@@ -15,14 +15,6 @@ p, h4 {
     font-family: sans-serif;
 }
 
-/* button {
-    padding: 0;
-    border: none;
-    background: none;
-    color: white;
-    font-size: 100%;
-    font-weight: 400;
-} */
 
 .is-clickable {
     cursor: pointer;
@@ -141,6 +133,23 @@ p, h4 {
     margin: 0.5rem;
     padding-bottom: 0.7rem;
     display: block;
+}
+
+#notes-form {
+    display: grid;
+    width: 85%;
+}
+
+#form-textarea {
+    margin: 0px;
+    width: 8.2rem;
+    height: 70px;
+}
+
+#form-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
 }
 
 #button-close {
