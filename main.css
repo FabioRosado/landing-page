@@ -107,6 +107,7 @@ p, h4 {
     padding-top: 15px;
     overflow-y: auto;
     overflow-x: auto;
+    border-radius: 4px;
 }
 
 #left-grey-color {
@@ -116,7 +117,7 @@ p, h4 {
 
 #new-todo {
     position: relative;
-    margin-right: 1rem;
+    margin: 0rem 0rem 1rem 0.7rem;
 }
 
 #todo-item {
